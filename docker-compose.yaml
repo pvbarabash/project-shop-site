@@ -1,0 +1,26 @@
+services:
+  app:
+    build:
+      dockerfile: ./Dockerfile
+    volumes:
+      - static_volume:/app/staticfiles
+    environment:
+      PYTHONPATH: "/app"
+    command: >
+            sh -c "poetry run python manage.py migrate && \
+                    gunicorn mysite.wsgi:application --bind 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+  nginx:
+    image: nginx:alpine
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - static_volume:/app/staticfiles
+    depends_on:
+      - app
+
+volumes:
+    static_volume:
