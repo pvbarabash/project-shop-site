@@ -2,9 +2,6 @@ services:
   app:
     build:
       dockerfile: ./Dockerfile
-    volumes:
-      - ./mysite/database:/app/database
-      - static_volume:/app/staticfiles
     environment:
       PYTHONPATH: "/app"
     command: >
@@ -13,6 +10,14 @@ services:
     ports:
       - "8000:8000"
     restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "10"
+        max-size: "200K"
+    volumes:
+      - ./mysite/database:/app/database
+      - static_volume:/app/staticfiles
   nginx:
     image: nginx:alpine
     container_name: nginx-proxy
