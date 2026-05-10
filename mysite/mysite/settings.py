@@ -32,9 +32,13 @@ DEBUG = getenv("DJANGO_DEBUG", "0") == "1"
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "0.0.0.0",
-    'localhost',
-    'nginx',
-] + getenv("DJANGO_ALLOWED_HOSTS", "").split(",")
+    "localhost",
+    "nginx",
+]
+
+env_hosts = getenv("DJANGO_ALLOWED_HOSTS", "")
+if env_hosts:
+    ALLOWED_HOSTS.extend(env_hosts.split(","))
 
 INTERNAL_IPS = [
     "127.0.0.1",
