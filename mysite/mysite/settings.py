@@ -34,6 +34,7 @@ ALLOWED_HOSTS = [
     "0.0.0.0",
     "localhost",
     "nginx",
+    "83.217.202.110",
 ]
 
 env_hosts = getenv("DJANGO_ALLOWED_HOSTS", "")
