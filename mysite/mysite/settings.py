@@ -34,6 +34,7 @@ ALLOWED_HOSTS = [
     "0.0.0.0",
     "localhost",
     "nginx",
+    "app",
     "83.217.202.110",
 ]
 
